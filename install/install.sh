@@ -41,4 +41,5 @@ else
   echo "source ~/.silicon/silicon.sh" >> .zshrc
 fi
 source ~/.zshrc
+echo -e " "
 echo -e "🎉 We're done! You can now start using Silicon by running \e[38;2;71;248;222msilicon help\e[0m in your terminal\!"
