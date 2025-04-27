@@ -24,7 +24,7 @@ set(SOURCES
 # Included imports
 set(IMPORTS
     /opt/homebrew/include
-    /Users/jorgenfinsveen/vcpkg/installed/arm64-osx/include
+    ~/vcpkg/installed/arm64-osx/include
     /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/
 )
 
