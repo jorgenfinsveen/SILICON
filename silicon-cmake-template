@@ -1,0 +1,77 @@
+cmake_minimum_required(VERSION 3.18)
+
+# Project name
+set(PROJECT_NAME 
+    myproject   # <-- Change to your project name
+)
+
+# Language (C or CXX)
+set(LANG 
+    C           # <-- Change to CXX for C++ projects
+)                
+
+# Name of build
+set(TARGET 
+    myproject   # <-- Change to your project name
+)    
+
+# Source files
+set(SOURCES 
+    main.c      # <-- Change to main.cpp for C++ projects
+    # Add more source files here
+)        
+
+# Included imports
+set(IMPORTS
+    /opt/homebrew/include
+    /Users/jorgenfinsveen/vcpkg/installed/arm64-osx/include
+    /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/
+)
+
+project(${PROJECT_NAME} LANGUAGES ${LANG})
+
+# CMake configuration for Apple Silicon
+if(APPLE)
+    execute_process(
+        COMMAND xcrun --sdk macosx --show-sdk-path
+        OUTPUT_VARIABLE CMAKE_OSX_SYSROOT
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+    message(STATUS "Using SDK: ${CMAKE_OSX_SYSROOT}")
+
+    if(LANG STREQUAL "C")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -isysroot ${CMAKE_OSX_SYSROOT}")
+    elseif(LANG STREQUAL "CXX")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isysroot ${CMAKE_OSX_SYSROOT}")
+    endif()
+endif()
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+find_package(OpenMP REQUIRED)
+
+include_directories(${IMPORTS})
+
+add_executable(${TARGET} ${SOURCES})
+
+if(LANG STREQUAL "C")
+    target_link_libraries(${TARGET}
+        OpenMP::OpenMP_C
+    )
+elseif(LANG STREQUAL "CXX")
+    target_link_libraries(${TARGET}
+        OpenMP::OpenMP_CXX
+    )
+endif()
+
+if(LANG STREQUAL "C")
+    set_target_properties(${TARGET} PROPERTIES
+        C_STANDARD 11
+        C_STANDARD_REQUIRED YES
+    )
+elseif(LANG STREQUAL "CXX")
+    set_target_properties(${TARGET} PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED YES
+    )
+endif()
