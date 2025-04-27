@@ -105,7 +105,6 @@ I created this due to problems I had with C/C++ and OpenMP. In order to get the 
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
 eval "$(/opt/homebrew/bin/brew shellenv)"
 brew --version
-clang --version
 ```
 
 #### Installing vcpkg
@@ -117,6 +116,7 @@ vcpkg version
 #### Installing Xcode CLI
 ```sh
 xcode-select --install
+clang --version
 ```
 
 #### Installing OpenMP
