@@ -1,3 +1,8 @@
+# Silicon
+
+![Silicon](https://img.shields.io/badge/Silicon-Optimized%20for%20M--series-black?logo=apple&logoColor=white) [![GitHub release](https://img.shields.io/github/v/release/jorgenfinsveen/silicon?style=flat-square)](https://github.com/jorgenfinsveen/silicon/releases)
+ ![Install](https://img.shields.io/badge/install-curl--script-brightgreen) ![Silicon](https://img.shields.io/badge/Silicon-Rocket%20Powered-red?logo=rocket&logoColor=white)
+
 <picture>
   <source srcset="https://github.com/user-attachments/assets/bc5675a1-309a-4cf6-af52-a4c17127a968" media="(prefers-color-scheme: dark)">
   <source srcset="https://github.com/user-attachments/assets/c358df6b-69bb-4907-a805-e1f3c4728b68" media="(prefers-color-scheme: light)">
@@ -5,14 +10,7 @@
 </picture>
 
 
-<br/><br/>
-
-
-![Version](https://img.shields.io/badge/version-1.0.0-blue) ![Install](https://img.shields.io/badge/install-curl--script-brightgreen) ![Silicon](https://img.shields.io/badge/Silicon-Apple%20Silicon%20Optimized-0078D4?logo=apple&logoColor=white) ![M1 Optimized](https://img.shields.io/badge/M1/M2-Optimized-black?logo=apple&logoColor=white) ![Built for Speed](https://img.shields.io/badge/Built%20for-Speed-red?logo=thunder-cloud&logoColor=white) ![Silicon](https://img.shields.io/badge/Silicon-Rocket%20Powered-red?logo=rocket&logoColor=white)
-
-
-
-
+<br/>
 
 **Silicon** is a lightweight and fast command-line tool for setting up, building, running, and cleaning C/C++ projects on macOS with Apple Silicon (ARM64).
 
@@ -175,6 +173,32 @@ I will also recommend that you select the right configurations. Here is how my `
     "version": 4
 }
 ```
+
+## 🛤 Roadmap
+
+- [x] v1.0.0: First official release
+- [x] Colorful ASCII logo and CLI output
+- [x] Quick install via `curl`
+- [ ] Allow specifying target manually (e.g., `silicon run myprogram`)
+- [x] Add caching of target name for faster runs
+- [ ] Add support for building multiple binaries
+- [ ] Add `silicon update` command for future self-updating
+- [ ] Write full documentation with examples and troubleshooting
+- [ ] Add parameter to init function to specify the language of the project
+
+---
+
+### ✨ Planned Features
+- Interactive CLI prompts (e.g., when initializing a project)
+- Auto-detect common project structures
+- Support for cross-platform (Linux ARM64)
+- Support for automatic CMake inclusion of parallelism libraries (MPI, Metal, OpenCL, CUDA)
+- Support for specifying compiler flags
+
+---
+
+If you have ideas or suggestions, feel free to open an [issue](https://github.com/jorgenfinsveen/silicon/issues)!
+
 
 ## 📸 Screenshots
 <img width="753" alt="Terminal screenshot of Silicon in action" src="https://github.com/user-attachments/assets/e8ecefc3-d273-4508-9888-a1299be1ed05" />
