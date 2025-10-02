@@ -2,14 +2,14 @@
 # Usage: silicon [init|build|run|clean|info]
 silicon() {
     if [[ "$1" == "init" ]]; then
-        silicon_init
+        silicon_init "$2"
     elif [[ "$1" == "build" ]]; then
         silicon_build
     elif [[ "$1" == "run" ]]; then
         silicon_run
     elif [[ "$1" == "clean" ]]; then
         silicon_clean
-    elif [[ "$1" == "info" ]]; then
+    elif [[ "$1" == "info" || "$1" == "help" ]]; then
         silicon_info
     elif [[ "$1" == "" ]]; then
         silicon_blank
@@ -22,7 +22,7 @@ silicon() {
 BUILD_DIR="./build"
 SDK_PATH=$(xcrun --sdk macosx --show-sdk-path)
 SILICON_HOME="$HOME/.silicon"
-CMAKE_TEMPLATE="$SILICON_HOME/templates/cmake.txt"
+CMAKE_TEMPLATE_PATH="$SILICON_HOME/templates"
 CACHE_TARGET_FILE="$BUILD_DIR/.silicon_cache_target.txt"
 
 # Regex
@@ -114,17 +114,21 @@ silicon_build() {
 }
 
 
-
-# Function to create a universal CMakeLists.txt file
+# Function to create a universal CMakeLists.txt file for C
 silicon_init() {
     local cmake_file="CMakeLists.txt"
+    local template
+    local lang
+    lang=$(printf '%s' "${1:-}" | tr '[:upper:]' '[:lower:]')
 
-    if [[ -f "$cmake_file" ]]; then
-        rm "$cmake_file"
-    fi
+    case "$lang" in
+        cpp|cxx) template="cmake_cpp.txt" ;;
+        ""|*)    template="cmake_c.txt" ;;
+    esac
 
-    cat < $CMAKE_TEMPLATE > "$cmake_file"
+    cp -f -- "$CMAKE_TEMPLATE_PATH/$template" "$cmake_file"
 }
+
 
 
 # Function to run the built project
@@ -181,6 +185,13 @@ silicon_info() {
     echo -e "Usage: silicon [${RED}init${NC}|${BLUE}build${NC}|${GREEN}run${NC}|${YELLOW}clean${NC}|info]"
     echo -e "-------------------------------------------------------------------"
     echo -e "  ${RED}init${NC}:  Create a universal CMakeLists.txt file"
+    echo -e "  \tOptional params:"
+    echo -e "  \t\tCreate C++ project:"
+    echo -e "  \t\t\tsilicon init cpp"
+    echo -e "  \t\t\tsilicon init cxx"
+    echo -e "  \t\tCreate C project:"
+    echo -e "  \t\t\tsilicon init c"
+    echo -e "  \t\t\tsilicon init"
     echo -e "  ${BLUE}build${NC}: Build the project using CMake"
     echo -e "  ${GREEN}run${NC}  : Build and run the project"
     echo -e "  ${YELLOW}clean${NC}: Remove the build directory"
