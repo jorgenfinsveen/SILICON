@@ -129,6 +129,8 @@ silicon_init() {
 
 # Function to run the built project
 silicon_run() {
+    local PROJECT_DIR=$(pwd)
+
     if [ -f "$CACHE_TARGET_FILE" ]; then
         CMAKE_TARGET=$(cat "$CACHE_TARGET_FILE")
     else
@@ -137,6 +139,7 @@ silicon_run() {
             CMAKE_TARGET=$(awk -F: $TARGET_REGEX "$BUILD_DIR/Makefile")
         fi
     fi
+    cd $PROJECT_DIR
     ./"$BUILD_DIR/$CMAKE_TARGET"
 }
 
